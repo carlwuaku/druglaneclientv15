@@ -1,23 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { authGuard } from './core/auth/auth.guard';
+import { DashboardComponent } from './core/pages/dashboard/dashboard.component';
+import { LoginComponent } from './core/pages/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'track',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
-  
+
+
   {
-    path: 'track',
-    loadChildren: () =>
-      import('./features/delivery-path/delivery-path.module').then(
-        (m) => m.DeliveryPathModule
-      ),
+    path: 'dashboard',
+    component: DashboardComponent, canActivate: [authGuard]
   },
-  
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  { path: 'products', loadChildren: () => import('./features/products/products.module').then(m => m.ProductsModule) }, {
     path: '**',
     redirectTo: '',
   },
@@ -25,7 +29,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    enableTracing: environment.debug.routeTracing,
+    enableTracing: environment.routeTracing,
   })],
   exports: [RouterModule],
 })

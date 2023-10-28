@@ -1,0 +1,26 @@
+
+export const PERMISSION_VIEW_USER_ACTIVITIES = "View User Activity";
+export const PERMISSION_VIEW_PURCHASE_HISTORY = "View Purchase History";
+export const PERMISSION_VIEW_INVENTORY = "View Inventory";
+export const PERMISSION_VIEW_END_OF_DAY_REPORT = "View End Of Day Report";
+export const PERMISSION_VIEW_ACCOUNTS = "View Accounts";
+export const PERMISSION_TRANSFER_ITEMS = "Transfer Items";
+export const PERMISSION_RETURN_SOLD_ITEMS = "Return Sold Items";
+export const PERMISSION_RECEIVE_TRANSFERS = "Receive Transfers";
+export const PERMISSION_RECEIVE_PURCHASES = "Receive Purchases";
+export const PERMISSION_MANAGE_VENDORS = "Manage Vendors";
+export const PERMISSION_MANAGE_STAFF = "Manage Staff";
+export const PERMISSION_MANAGE_SETTINGS = "Manage Settings";
+export const PERMISSION_MANAGE_INVENTORY = "Manage Inventory";
+export const PERMISSION_MANAGE_CUSTOMERS = "Manage Customers";
+export const PERMISSION_MANAGE_ACCOUNTS = "Manage Accounts";
+export const PERMISSION_GIVE_DISCOUNT = "Give Discount";
+export const PERMISSION_EDIT_SALES = "Edit Sales";
+export const PERMISSION_DELETE_TRANSFERS = "Delete Transfers";
+export const PERMISSION_DELETE_SALES_RECORDS = "Delete Sales Records";
+export const PERMISSION_DELETE_PURCHASES = "Delete Purchases";
+export const PERMISSION_CREATE_SALES = "Create Sales";
+export const PERMISSION_ADJUST_STOCK = "Adjust Stock";
+export const PERMISSION_VIEW_TRANSFER_HISTORY = "View Transfer History";
+export const PERMISSION_VIEW_SALES_REPORTS = "View Sales Reports";
+export const PERMISSION_VIEW_SALES_HISTORY = "View Sales History";

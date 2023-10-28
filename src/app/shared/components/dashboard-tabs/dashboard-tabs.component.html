@@ -1,0 +1,146 @@
+<div class="row">
+
+  <div *ngIf="can_view_accounts" class="col-md-3 col-sm-6 col-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-primary"><i class="fa fa-dollar"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Stock Cost Value</span>
+        <span class="info-box-number">
+          <app-api-count [url]="'product/stockValues/cost_value'"></app-api-count>
+        </span>
+        <a class="small-text" routerLink="/stock_report">More Details <i class="fa fa-arrow-right"></i> </a>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+
+  <div *ngIf="can_view_accounts" class="col-md-3 col-sm-6 col-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-primary"><i class="fa fa-dollar"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Stock Selling Value</span>
+        <span class="info-box-number">
+          <app-api-count [url]="'product/stockValues/selling_value'"></app-api-count>
+        </span>
+        <a class="small-text" routerLink="/stock_report">More Details <i class="fa fa-arrow-right"></i> </a>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-danger"><i class="fa fa-exclamation-triangle"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Expired</span>
+        <span class="info-box-number">
+          <app-api-count [url]="'product/count?param'+expiryThisMonthQueryString"></app-api-count> Items
+        </span>
+        <a class="small-text" routerLink="/expiry/all">More Details <i class="fa fa-arrow-right"></i> </a>
+
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <div *ngIf="can_view_inventory" class="col-md-3 col-sm-6 col-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-warning"><i class="fa fa-exclamation-triangle"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Expiring This Month</span>
+        <span class="info-box-number">
+          <app-api-count [url]="'product/count?param'+expiryNextMonthQueryString"></app-api-count> Items
+        </span>
+        <a class="small-text" routerLink="/expiry/this_month">More Details <i class="fa fa-arrow-right"></i> </a>
+
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <div *ngIf="can_view_inventory" class="col-md-3 col-sm-6 col-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-info"><i class="fa fa-exclamation-triangle"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Expiring Next Month</span>
+        <span class="info-box-number"> Items</span>
+        <a class="small-text" routerLink="/expiry/next_month">More Details <i class="fa fa-arrow-right"></i> </a>
+
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+
+  <div *ngIf="can_view_inventory" class="col-md-3">
+    <div class="info-box">
+      <span class="info-box-icon bg-warning"><i class="fa fa-arrow-down"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Almost out of stock</span>
+        <span class="info-box-number"> Items</span>
+        <a class="small-text" routerLink="/near_min">More Details <i class="fa fa-arrow-right"></i> </a>
+
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+
+  </div>
+  <div *ngIf="can_view_inventory" class="col-md-3">
+    <div class="info-box">
+      <span class="info-box-icon bg-primary"><i class="fa fa-dollar"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Stock Out</span>
+        <span class="info-box-number">
+          <app-api-count [url]="'product/count?param='+stockOutQueryString"></app-api-count> Items
+        </span>
+        <a class="small-text" routerLink="/stockout">More Details <i class="fa fa-arrow-right"></i> </a>
+
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+
+
+  </div>
+  <div class="col-md-3">
+    <div class="info-box">
+      <span class="info-box-icon bg-info"><i class="fa fa-dollar"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Customer Arrears</span>
+        <span class="info-box-number">GH&cent; </span>
+        <a class="small-text" routerLink="/arrears">More Details <i class="fa fa-arrow-right"></i> </a>
+
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+
+  </div>
+  <!-- <div class="col-md-3">
+              <div class="card card-body bg-info">Total on Credit: <b>{{credit_purchased}}</b> </div>
+
+            </div> -->
+
+  <div *ngIf="can_view_accounts" class="col-md-3">
+    <div class="info-box">
+      <span class="info-box-icon bg-success"><i class="fa fa-dollar"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Suppliers Debt Balance</span>
+        <span class="info-box-number">GH&cent; </span>
+        <a class="small-text" routerLink="/purchase_payment_history">More Details <i class="fa fa-arrow-right"></i>
+        </a>
+
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+  </div>
+</div>

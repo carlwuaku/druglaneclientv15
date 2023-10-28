@@ -1,0 +1,26 @@
+<app-loading *ngIf="loading"></app-loading>
+<span class="text-danger" *ngIf="error">{{error_message}}. <br>
+  <button type="button" *ngIf="type !== 'search'" (click)="getData()" color="error" mat-stroked-button>
+    <mat-icon>refresh</mat-icon> Retry
+  </button>
+</span>
+  <span *ngIf="isLoaded && type === 'select'">
+    <p-dropdown (onChange)="selectionMade()" *ngIf="isLoaded" [options]="objects" [(ngModel)]="selectedItem"
+      optionLabel="{{labelProperty}}" [filter]="true" [filterBy]="labelProperty" [showClear]="true"
+      defaultLabel="Select an item">
+    </p-dropdown>
+  </span>
+
+  <div *ngIf="isLoaded && type === 'search'">
+    <p-autoComplete [(ngModel)]="selectedItem" [dropdown]="true" [field]="labelProperty" [suggestions]="objects"
+      [dropdownMode]="'current'" (completeMethod)="search($event)"></p-autoComplete>
+
+  </div>
+
+  <span *ngIf="isLoaded && type == 'datalist'">
+    <input type="text" [(ngModel)]="selectedItem" [attr.list]="datalistKey" name="selected" (change)="datalistSelectionMade()">
+    <datalist [id]="datalistKey">
+      <option *ngFor="let obj of objects" value="{{obj}}">{{obj}} </option>
+    </datalist>
+  </span>
+

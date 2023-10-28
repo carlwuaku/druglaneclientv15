@@ -16,7 +16,19 @@ import { CoreModule } from './core/core.module';
 import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { ErrorInterceptorService } from './core/interceptors/global-error-handler.interceptor';
-import { LOCATION_INITIALIZED } from '@angular/common';
+import { HeadersInterceptorInterceptor } from './core/interceptors/headers-interceptor.interceptor';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
+import { FormComponent } from './features/products/form/form.component';
+
+let socketUrl = "http://127.0.0.1:5000";
+if (environment.environment == 'offline') {
+  const url = window.location.href;
+  const parts = url.split("/")//get localhost:5000 or something, login
+  const _url = parts[0] + "//" + parts[1] + "" + parts[2] + "/"
+  socketUrl = _url;
+}
+const config: SocketIoConfig = { url: socketUrl, options: {} };
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(
@@ -37,7 +49,7 @@ export function appInitializerTranslationsFactory(translate: TranslateService) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FormComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -70,6 +82,7 @@ export function appInitializerTranslationsFactory(translate: TranslateService) {
         deps: [HttpClient]
       }
     }),
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     {
@@ -83,6 +96,11 @@ export function appInitializerTranslationsFactory(translate: TranslateService) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeadersInterceptorInterceptor,
       multi: true,
     }
   ],

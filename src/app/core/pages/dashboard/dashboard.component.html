@@ -1,0 +1,161 @@
+<section class="content">
+  <div class="container">
+
+
+    <h4 class="text-info">Welcome, {{this.authService.currentUser.display_name}} </h4>
+    <h5 class="text-danger">
+      <!-- <app-logo></app-logo> {{this.authService.currentUser.company.name}} -->
+    </h5>
+    <h5> Dashboard </h5>
+    <!-- <app-search [search_type]="'Products'"></app-search>
+        <hr> -->
+    <app-dashboard-tabs></app-dashboard-tabs>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div  class="col-sm-4">
+            <a [routerLink]="['/new_sale']">
+              <div class=" text-center  dashboard-card bg-success">
+                <div class="card-body">
+                  <i class="fa fa-2x fa-print"></i>
+                  <br>
+                  <b>Start Sales</b>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="col-sm-4">
+            <a [routerLink]="['/sales']">
+              <div class=" dashboard-card text-center bg-success">
+                <div class="card-body bg-aqua-active">
+                  <i class="fa fa-2x fa-file-text-o"></i>
+                  <br>
+                  <b>Sales History</b>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="col-sm-4">
+            <a [routerLink]="['/sales_reports']">
+              <div class=" text-center dashboard-card bg-success">
+                <div class="card-body">
+                  <i class="fa fa-2x fa-file-o"></i>
+                  <br>
+                  <b>End Of Day</b>
+                </div>
+              </div>
+            </a>
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <a [routerLink]="['/expiry']">
+              <div class="text-center dashboard-card  bg-danger">
+                <div class="card-body">
+                  <i class="fa fa-2x fa-exclamation-triangle"></i>
+                  <br>
+                  <b>Expired Items</b>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div  class="col-sm-4">
+            <a [routerLink]="['/add_purchase']">
+              <div class="text-center dashboard-card bg-success">
+                <div class="card-body">
+                  <i class="fa fa-2x fa-truck"></i>
+                  <br>
+                  <b>Purchases</b>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="col-sm-4">
+            <a [routerLink]="['/products']">
+              <div class="text-center dashboard-card bg-success">
+                <div class="card-body">
+                  <i class="fa fa-2x fa-database"></i>
+                  <br>
+                  <b>View Inventory</b>
+                </div>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+
+        <div  class="row">
+
+          <div class="col-sm-4">
+            <a [routerLink]="['/add_customer']">
+              <div class="text-center dashboard-card bg-success">
+                <div class="card-body">
+                  <i class="fa fa-2x fa-user-plus"></i>
+                  <br>
+                  <b>New Customer</b>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="col-sm-4">
+            <a [routerLink]="['/customers']">
+              <div class="text-center dashboard-card bg-success">
+                <div class="card-body">
+                  <i class="fa fa-2x fa-users"></i>
+                  <br>
+                  <b>Customers</b>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <!-- <div class="col-sm-4">
+                            <a>
+                                <div class="text-center dashboard-card bg-success">
+                                    <div class="card-body">
+                                        <i class="fa fa-2x fa-table"></i>
+                                        <br>
+                                        <b>Refills ({{refills}})</b>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div> -->
+
+
+        </div>
+
+
+
+      </div>
+      <div class="col-md-6">
+
+        <div class="list-group">
+          <a class="list-group-item text-white bg-info">
+            <b><i class="feather icon-chevrons-right"></i> Upcoming Refills <a [routerLink]="['/refills']"
+                class="btn btn-sm btn-warning">More Details...</a> </b>
+          </a>
+          <a *ngFor="let r of refills" class="list-group-item">
+            <i class="fa fa-user"></i> {{r.customer_name}}. <i class="fa fa-phone"></i> {{r.phone}} <br>
+            <b>Due: </b> {{r.end_date}} <br>
+            <b>Items: </b> {{r.product}}
+
+          </a>
+
+
+        </div>
+
+      </div>
+
+

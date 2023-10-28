@@ -3,6 +3,11 @@ import { Router, NavigationEnd } from '@angular/router';
 import { GoogleTagManagerService } from "angular-google-tag-manager";
 import { AnalyticsService } from "./core/services/analytics/analytics.service";
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { AuthService } from './core/auth/auth.service';
+import { HttpService } from './core/services/http/http.service';
+import { API_ADMIN_PATH } from './shared/utils/constants';
+import { TitleService } from './core/services/title/title.service';
 
 @Component({
   selector: 'app-root',
@@ -12,45 +17,35 @@ import { TranslateService } from '@ngx-translate/core';
   providers: [GoogleTagManagerService],
 })
 export class AppComponent implements OnInit {
-  title = 'hire-tracker-app';
-
+  title = 'MDC Management System';
+  isLoggedIn: boolean;
   constructor(
-    private translationService: TranslateService,
-    private router: Router,
-    private gtmService: GoogleTagManagerService,
-    private analyticsService: AnalyticsService) {
-      const langCode: string = navigator.language.split("-")[0];
-      this.translationService.addLangs(['en']);
-      this.translationService.setDefaultLang(langCode);
-      this.translationService.use(langCode);
+    private dbService: HttpService,
+    private titleService: TitleService,
+  private authService: AuthService) {
+    this.isLoggedIn = this.authService.checkLogin("")
   }
 
   ngOnInit(): void {
-    this.analyticsService.startGoogleAnalytics();
+    this.dbService.get<any>(`${API_ADMIN_PATH}/getAppName`).subscribe({
+      next: (data) => {
+        this.titleService.appName.next(data.long_name);
+        this.titleService.appShortName.next(data.name)
+      },
+      error: (error) => {
 
-    this.router.events.subscribe((item) => {
-      if (item instanceof NavigationEnd) {
-        const gtmTag = { event: 'page', pageName: item.url };
-        this.gtmService.pushTag(gtmTag).then(() => { }).catch(error => { });
       }
-    });
-    this.analyticsService.trackPages(this.router);
+    })
+
+    // this.analyticsService.startGoogleAnalytics();
+
+    // this.router.events.subscribe((item) => {
+    //   if (item instanceof NavigationEnd) {
+    //     const gtmTag = { event: 'page', pageName: item.url };
+    //     this.gtmService.pushTag(gtmTag).then(() => { }).catch(error => { });
+    //   }
+    // });
+    // this.analyticsService.trackPages(this.router);
   }
 
-  navigateToModule(modulePath: string) {
-    this.router.navigate([`/${modulePath}`]).then(() => { }).catch(error => { });
-
-    this.router.events.subscribe(item => {
-      if (item instanceof NavigationEnd) {
-        const gtmTag = {
-          event: 'page',
-          pageName: item.url
-        };
-        this.gtmService.pushTag(gtmTag).then(() => { }).catch(error => { });;
-      }
-    });
-
-    // page tracking
-    this.analyticsService.trackPages(this.router);
-  }
 }

@@ -1,0 +1,21 @@
+<app-loading *ngIf="loading"></app-loading>
+<span class="text-danger" *ngIf="error">{{errorMessage}}. <br>
+  <button type="button"  (click)="getData()" color="error" mat-stroked-button>
+    <mat-icon>refresh</mat-icon> Retry
+  </button>
+</span>
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <!-- <img src="{{object.picture}}"  height="125"  alt="object_pic" /> -->
+    <!-- <a class="btn btn-success" *ngIf="can_edit" routerLink="/{{edit_string}}/{{object.id}}">Edit</a> -->
+
+  </div>
+  <div class="card-body ">
+    <div class="list-group" >
+      <div class="list-group-item" *ngFor="let keyLabel of keyLabels">
+        <b class="capitalize">{{keyLabel.label}}</b> <br> {{object[keyLabel.key]}}
+      </div>
+    </div>
+
+  </div>
+</div>

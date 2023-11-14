@@ -1,0 +1,71 @@
+<div class="flex_search" #search_results_div>
+  <div class="focus_search" >
+    <app-select-object (selectionChanged)="selectionMade($event)" [type]="'search'" [url]="'product'" [searchFields]="searchFields">
+
+      <ng-template #customTemplate let-object pTemplate="item">
+        <div *ngIf="object">
+        {{object.name}} <br>
+        [price: {{object.price}}/{{object.unit}}]
+        <span >[stock: {{object.stock}}] </span>
+        <span > [shelf: {{object.shelf}}]</span>
+        <span  [ngClass]="{ 'text-danger':  object.expired}"> [expiry: {{object.expiry}}] </span>
+        </div>
+      </ng-template>
+    </app-select-object>
+    <div class="search_extra_options">
+      <i title="Add New Product" class="fa fa-plus" (click)="addProduct()" style="
+    color: gray; margin: 1%;
+    cursor: pointer;"></i>
+      <i title="Settings" class="fa fa-cog" style="
+    color: gray; margin: 1%;
+    cursor: pointer;" data-toggle="modal" data-target="#select_product_settings_modal"></i>
+      <span style="
+    font-size: 12px;
+    border: 1px solid gray;
+
+    color: gray;
+    border-radius: 2px;
+    padding: 1px;
+    margin: 1%;
+    cursor: pointer;" data-target="#advanced_search_modal" data-toggle="modal">Adv.</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <div class="modal fade" id="select_product_settings_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5>Settings for Product Select</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Number of Items to Display</label> <br>
+          <select (change)="keyUp($event)" [(ngModel)]="num_items">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+            <option>250</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Extra Info to display for each</label> <br>
+          <label><input type="checkbox" (change)="setShowStock($event)" [(ngModel)]="show_stock"> Stock</label> &nbsp;
+          <br>
+          <label><input type="checkbox" [(ngModel)]="show_expiry"> Expiry</label> &nbsp; <br>
+          <label><input type="checkbox" [(ngModel)]="show_shelf"> Shelf</label> &nbsp;
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+

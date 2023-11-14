@@ -51,6 +51,7 @@ export class LoadDataListComponent {
   @Input() exclusion_keys = ['id', 'created_by', 'modified_on', 'deleted',
     'deleted_by', 'password_hash', 'last_ip']
   show_table: boolean = false;
+  @Input() rowClassRules: any = {};
   constructor(private dbService: HttpService,
     private notify: NotifyService) {
     this.frameworkComponents = {
@@ -59,6 +60,8 @@ export class LoadDataListComponent {
       LinkNameComponent,
       DataListMenuButtonComponent
     }
+
+
   }
   ngOnDestroy(): void {
     this.destroy$.next(true);

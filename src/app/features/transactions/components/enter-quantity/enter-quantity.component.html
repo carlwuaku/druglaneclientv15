@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <div>
+    <label for="">Quantity</label><br>
+    <input type="text" formControlName="quantity" (keydown.down)="decrement()"
+    (keydown.up)="increment()">
+
+  </div>
+
+  <button></button>
+
+</form>

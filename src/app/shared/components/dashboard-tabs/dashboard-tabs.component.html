@@ -39,7 +39,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Expired</span>
         <span class="info-box-number">
-          <app-api-count [url]="'product/count?param'+expiryThisMonthQueryString"></app-api-count> Items
+          <app-api-count [url]="'product/count?param='+expiredQueryString"></app-api-count> Items
         </span>
         <a class="small-text" routerLink="/expiry/all">More Details <i class="fa fa-arrow-right"></i> </a>
 
@@ -55,7 +55,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Expiring This Month</span>
         <span class="info-box-number">
-          <app-api-count [url]="'product/count?param'+expiryNextMonthQueryString"></app-api-count> Items
+          <app-api-count [url]="'product/count?param='+expiryThisMonthQueryString"></app-api-count> Items
         </span>
         <a class="small-text" routerLink="/expiry/this_month">More Details <i class="fa fa-arrow-right"></i> </a>
 
@@ -70,7 +70,9 @@
 
       <div class="info-box-content">
         <span class="info-box-text">Expiring Next Month</span>
-        <span class="info-box-number"> Items</span>
+        <span class="info-box-number">
+                    <app-api-count [url]="'product/count?param='+expiryNextMonthQueryString"></app-api-count> Items
+        </span>
         <a class="small-text" routerLink="/expiry/next_month">More Details <i class="fa fa-arrow-right"></i> </a>
 
       </div>
@@ -85,7 +87,10 @@
 
       <div class="info-box-content">
         <span class="info-box-text">Almost out of stock</span>
-        <span class="info-box-number"> Items</span>
+        <span class="info-box-number">
+                    <app-api-count [url]="'product/count?param='+expiryNearMinQueryString"></app-api-count> Items
+
+        </span>
         <a class="small-text" routerLink="/near_min">More Details <i class="fa fa-arrow-right"></i> </a>
 
       </div>

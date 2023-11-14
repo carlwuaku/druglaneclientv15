@@ -11,9 +11,16 @@
     </p-dropdown>
   </span>
 
-  <div *ngIf="isLoaded && type === 'search'">
-    <p-autoComplete [(ngModel)]="selectedItem" [dropdown]="true" [field]="labelProperty" [suggestions]="objects"
-      [dropdownMode]="'current'" (completeMethod)="search($event)"></p-autoComplete>
+  <div *ngIf="type === 'search'">
+    <p-autoComplete class="search_input" [showClear]="true" defaultLabel="Type the name of an item"
+    [(ngModel)]="selectedItem" [dropdown]="true" [field]="labelProperty"
+    [suggestions]="objects" (onSelect)="selectionMade()"
+    [dropdownMode]="'current'" (completeMethod)="search($event)">
+    <div *ngIf="customTemplate">
+          <ng-container *ngTemplateOutlet="customTemplate"></ng-container>
+    </div>
+    <!-- <ng-container *ngTemplateOutlet="customTemplate || defaultTemplate"></ng-container> -->
+  </p-autoComplete>
 
   </div>
 
@@ -23,4 +30,8 @@
       <option *ngFor="let obj of objects" value="{{obj}}">{{obj}} </option>
     </datalist>
   </span>
+
+  <ng-template #defaultTemplate let-object>
+    <div>{{object[labelProperty]}}.. </div>
+  </ng-template>
 

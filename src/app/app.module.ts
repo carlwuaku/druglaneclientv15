@@ -19,7 +19,6 @@ import { ErrorInterceptorService } from './core/interceptors/global-error-handle
 import { HeadersInterceptorInterceptor } from './core/interceptors/headers-interceptor.interceptor';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
-import { FormComponent } from './features/products/form/form.component';
 
 let socketUrl = "http://127.0.0.1:5000";
 if (environment.environment == 'offline') {
@@ -49,7 +48,7 @@ export function appInitializerTranslationsFactory(translate: TranslateService) {
 }
 
 @NgModule({
-  declarations: [AppComponent, FormComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

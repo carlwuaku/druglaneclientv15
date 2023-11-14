@@ -9,6 +9,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const modules = [
   MatDialogModule,
@@ -19,7 +20,8 @@ const modules = [
   MatExpansionModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
-  MatMenuModule
+  MatMenuModule,
+  MatAutocompleteModule
 ];
 @NgModule({
   declarations: [],

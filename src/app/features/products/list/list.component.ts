@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ICellRendererParams } from 'ag-grid-community';
+import { DateService } from 'src/app/core/date/date.service';
+import { HttpService } from 'src/app/core/services/http/http.service';
+import { NotifyService } from 'src/app/core/services/notify/notify.service';
 
 @Component({
   selector: 'app-product-list',
@@ -23,7 +26,7 @@ export class ListComponent {
         actions: [
           { label: "View", type: "link", link: `products/details/${params.data.id}` },
           { label: "Edit", type: "link", link: `products/form/${params.data.id}` },
-          // { label: "Delete", type: "button", onClick: () => { this.delete(params.data.id) } },
+          { label: "Delete", type: "button", onClick: () => { this.delete(params.data.id, params.data.name) } },
         ]
       }),
       filter: true
@@ -37,7 +40,7 @@ export class ListComponent {
     },
     { headerName: 'Price', field: 'price', sortable: true, filter: true, cellClass: 'bordered' },
     { headerName: 'Closest Expiry', field: 'expiry', sortable: true, filter: true, cellClass: 'bordered' },
-    { headerName: 'Current Stock', field: 'stock', sortable: true, filter: true, cellClass: 'bordered' },
+    { headerName: 'Current Stock', field: 'current_stock', sortable: true, filter: true, cellClass: 'bordered' },
     { headerName: 'Current Stock Value', field: 'stock_value', sortable: true, filter: true, cellClass: 'bordered' },
     { headerName: 'Unit', field: 'unit', sortable: true, filter: true, cellClass: 'bordered' },
     { headerName: 'Category', field: 'category', sortable: true, filter: true, cellClass: 'bordered' },
@@ -63,4 +66,41 @@ export class ListComponent {
 
 
   ];
+
+  rowClassRules = {
+    warning: 'data.stock <= 0',
+    danger: 'data.expired && data.stock > 0',
+  };
+  refreshToken: string = this.dateService.getToday("timestamp_string");
+
+  constructor(public dbService: HttpService, private notify: NotifyService, private dateService: DateService){}
+
+  public delete(id: string, name: string) {
+    if (!window.confirm(`Sure you want to delete the selected product: ${name}?`)) {
+      return;
+    }
+    try {
+      this.dbService.delete<boolean>(`product/product/${id}`).subscribe({
+        next: (response) => {
+          // console.log(data);
+          this.notify.hideLoading();
+
+
+          this.notify.successNotification("Product saved successfully");
+          this.refreshToken = this.dateService.getToday("timestamp_string")
+
+
+
+        },
+        error: error => {
+          this.notify.hideLoading();
+          this.notify.noConnectionNotification();
+          // console.log(error);
+
+        }
+      });
+    } catch (error: any) {
+      this.notify.failNotification(error)
+    }
+  }
 }

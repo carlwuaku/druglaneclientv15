@@ -1,5 +1,9 @@
 
-    <app-load-data-list [url]="'product'" [columnDefs]="columnDefs">
+    <app-load-data-list
+    [rowClassRules]="rowClassRules"
+    [url]="'product'"
+    [timestamp]="refreshToken"
+    [columnDefs]="columnDefs">
 
     </app-load-data-list>
 

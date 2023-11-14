@@ -29,6 +29,8 @@ import { DataListMenuButtonComponent } from './components/data-list-menu-button/
 import { FormGeneratorComponent } from './components/form-generator/form-generator.component';
 import { DetailsComponent } from './components/details/details.component';
 import { DashboardTabsComponent } from './components/dashboard-tabs/dashboard-tabs.component';
+import { FormDialogComponent } from './components/form-dialog/form-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { DashboardTabsComponent } from './components/dashboard-tabs/dashboard-ta
     DataListMenuButtonComponent,
     FormGeneratorComponent,
     DetailsComponent,
-    DashboardTabsComponent
+    DashboardTabsComponent,
+    FormDialogComponent
   ],
   imports: [
     PrimeNgUiComponentsModule,
@@ -63,7 +66,8 @@ import { DashboardTabsComponent } from './components/dashboard-tabs/dashboard-ta
     TranslateModule,
     DialogModule,
     MaterialComponentsModule,
-    AgGridModule
+    AgGridModule,
+    ReactiveFormsModule
   ],
   exports: [
     PrimeNgUiComponentsModule,
@@ -91,7 +95,9 @@ import { DashboardTabsComponent } from './components/dashboard-tabs/dashboard-ta
     SelectObjectComponent,
     FormGeneratorComponent,
     DetailsComponent,
-    DashboardTabsComponent
+    DashboardTabsComponent,
+    FormDialogComponent,
+    ReactiveFormsModule
   ],
   providers: [
     ClipboardCopyDirective

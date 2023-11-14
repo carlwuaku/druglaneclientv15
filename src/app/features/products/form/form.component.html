@@ -1,3 +1,4 @@
+
 <form *ngIf="can_edit" #n="ngForm" ngNativeValidate (ngSubmit)="submit()">
   <div class="">
     <em>Fields marked * are required</em>
@@ -51,12 +52,16 @@
           <input type="text" name="new_unit" [(ngModel)]="new_unit" list="unit_grouplist">
           <br>
           <label>Conversion</label>
-          <br> <em>Enter how many of the old unit {{object.unit}} make up 1 of
+          <br> <em>Enter how many of the old unit ({{object.unit}}) make up 1 of
             the new unit ({{new_unit}}) to help adjust the stock & price</em>
-          <input (change)="unitConverter()" (keyup)="unitConverter()" [(ngModel)]="conversion_quantity_current"
-            name='conversion_quantity_current'> :
-          <input class="form-control" (change)="unitConverter()" (keyup)="unitConverter()"
-            [(ngModel)]="conversion_quantity_new" name='conversion_quantity_new'> <br>
+            <div class="flex">
+              <input class="unit_conversion_input" [placeholder]="object.unit" (change)="unitConverter()" (keyup)="unitConverter()"
+              [(ngModel)]="conversion_quantity_current"
+              name='conversion_quantity_current'> <mat-icon>sync_alt</mat-icon>
+            <input class="unit_conversion_input" (change)="unitConverter()" (keyup)="unitConverter()" [(ngModel)]="conversion_quantity_new"
+              name='conversion_quantity_new'>
+            </div>
+           <br>
           <em class="text-muted">Adjusted Price: <b>{{adjusted_price}}</b> Adjusted Cost Price:
             <b>{{adjusted_cost_price}}</b> Adjusted Stock:
             <b>{{adjusted_stock}}</b></em>. <span (click)="applyAdjusted()" class="btn btn-xs btn-info">Apply</span>
@@ -101,6 +106,9 @@
         <label><input type="checkbox" name="change_stock" [(ngModel)]="change_stock"> Update Current Stock</label>
         <input [disabled]="!change_stock" class="form-control" required [(ngModel)]="object.current_stock" type='text'
           name='stock'>
+          <div *ngIf="new_stock">To be adjusted to {{new_stock}}
+            <button class="btn btn-xs" mat-button>Undo</button>
+          </div>
 
       </div>
     </ng-template>
@@ -165,6 +173,7 @@
       <label>Preferred Vendor</label><br>
       <app-select-object [url]="'customer'"
       [initialValue]="object.preferred_vendor"
+      [initialValueKey]="'id'"
        (selectionChanged)="vendorSelected($event)">
       </app-select-object>
 
@@ -198,8 +207,8 @@
 
 
 
-  <input type="submit" name="submit" value="Submit" class="btn btn-success">
-  <input type="reset" name="reset" value="Reset" class="btn btn-warning">
+  <button type="submit" class="btn btn-success">Submit</button>
+  <button (click)="reset()" type="button" class="btn btn-warning">Reset</button>
 
 
 

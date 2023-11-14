@@ -99,7 +99,7 @@ export class SidebarComponent {
           title: "Edit Products",
           admin_available: false,
 
-          url: "/edit_product"
+          url: "/products/actions/edit"
         },
         {
           title: "View/Search Inventory",
@@ -269,7 +269,7 @@ export class SidebarComponent {
           title: "Add Customer",
           admin_available: false,
 
-          url: "/add_customer"
+          url: "/customers/form"
         },
         {
           title: "View/Manage Customers",

@@ -59,7 +59,7 @@ export class HttpService {
     return result;
   }
 
-  
+
 
   public get<T>(url: string, doNotEncode?: boolean): Observable<T> {
     const headers = this.getHeaders();
@@ -81,12 +81,10 @@ export class HttpService {
     return this.httpClient.post<T>(this.constructURL(url), data)
   }
 
-  public delete<T>(url: string, data: FormData): Observable<T> {
-    const options = {
-      body: data
-    };
+  public delete<T>(url: string): Observable<T> {
 
-    return this.httpClient.delete<T>(this.constructURL(url), options);
+
+    return this.httpClient.delete<T>(this.constructURL(url));
   }
-  
+
 }

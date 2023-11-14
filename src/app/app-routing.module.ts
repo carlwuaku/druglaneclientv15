@@ -21,7 +21,9 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  { path: 'products', loadChildren: () => import('./features/products/products.module').then(m => m.ProductsModule) }, {
+  { path: 'products', loadChildren: () => import('./features/products/products.module').then(m => m.ProductsModule) },
+  { path: 'customers', loadChildren: () => import('./features/customers/customers.module').then(m => m.CustomersModule) },
+  { path: 'transactions', loadChildren: () => import('./features/transactions/transactions.module').then(m => m.TransactionsModule) }, {
     path: '**',
     redirectTo: '',
   },

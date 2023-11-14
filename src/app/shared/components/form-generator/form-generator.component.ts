@@ -43,7 +43,7 @@ export class FormGeneratorComponent implements OnInit{
       next: (data) => {
         //for each key, find the corresponding field and set the value
         this.fields.map(field => {
-          field.value = data.data[field.name];
+          field.value = data[field.name];
         })
         this.notify.hideLoading();
       },
@@ -70,39 +70,27 @@ export class FormGeneratorComponent implements OnInit{
       return; // Stop submission if validation fails
     }
     this.notify.showLoading();
-    const data = new FormData();
+    const data:{[key:string]: any} = {};
     this.fields.forEach(field => {
-      data.append(field.name, field.value)
+      data[field.name] = field.value;
     });
     this.extraData.forEach(item => {
-      data.append(item.key, item.value)
+      data[item.key] = item.value
     })
     if (this.id) {
-      data.append("id", this.id)
+      data["id"] = this.id
     }
 
 
     this.dbService.post<any>(this.url, data).subscribe({
       next: (data) => {
-      // console.log(data);
       this.notify.hideLoading();
-      if (data.status === '1') {
         this.notify.successNotification('Submitted successfully');
         this.onSubmit.emit(true)
-      }
-      else {
-        this.notify.failNotification(data.message);
-        this.onSubmit.emit(false)
-
-      }
-
       },
       error:  (error) => {
       this.notify.hideLoading();
       this.notify.noConnectionNotification();
-
-      // console.log(error);
-
     }});
   }
 

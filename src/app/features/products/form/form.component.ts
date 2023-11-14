@@ -4,16 +4,17 @@ import { Socket } from 'ngx-socket-io';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { NotifyService } from 'src/app/core/services/notify/notify.service';
+import { Customer } from '../../customers/models/customer.model';
 import { ProductObject } from '../models/productModel';
 
 @Component({
-  selector: 'app-form',
+  selector: 'app-product-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
   object: ProductObject;
-  id: string | undefined = undefined;
+  @Input() id: string | undefined = undefined;
   error: boolean = false;
   is_loading: boolean = true;
   is_loaded: boolean = false;
@@ -38,13 +39,14 @@ export class FormComponent implements OnInit {
   adjusted_cost_price: number | undefined = undefined;
   is_pharmacy = true;
   selected_active_ingredients: string[] = []
-
+  originalObject: ProductObject;
+  new_stock: number | undefined = undefined;
   constructor(ar: ActivatedRoute,
     private dbService: HttpService, private socket: Socket,
     private notify: NotifyService) {
-    this.object = new ProductObject();
-    this.id = ar.snapshot.params['id'];
-      console.log(this.id)
+    this.object =  new ProductObject();
+    this.originalObject = { ...this.object }
+
 
   }
 
@@ -60,13 +62,17 @@ export class FormComponent implements OnInit {
   }
 
 
-
+  reset() {
+    if(window.confirm("Reset this form?"))
+    this.object = {...this.originalObject}
+  }
 
   getobject() {
     this.dbService.get<ProductObject>(`product/product/${this.id}`).subscribe({
       next: data => {
         //console.log(data.records);
         this.object = data;
+        this.originalObject = {...this.object}
         this.unit_selected = this.object.unit
         this.pic_location = this.object.picture
 
@@ -110,6 +116,7 @@ export class FormComponent implements OnInit {
       data["change_stock"] = this.change_stock ? "yes" : "no";
       data["change_unit"] = this.change_unit ? "yes" : "no";
       data["new_unit"] = this.new_unit;
+      data["new_stock"] = this.new_stock;
 
       // data.append("new_active_ingredients", active_ingredients.join("|||"))
 
@@ -145,7 +152,8 @@ export class FormComponent implements OnInit {
     }
   }
 
-  vendorSelected(args:any) {
+  vendorSelected(args: Customer) {
+    console.log(args)
     this.object.preferred_vendor = args.id;
   }
 
@@ -191,7 +199,7 @@ export class FormComponent implements OnInit {
   }
 
   applyAdjusted() {
-    this.object.current_stock = this.adjusted_stock;
+    this.new_stock = this.adjusted_stock;
     this.object.price = this.adjusted_price
     this.object.cost_price = this.adjusted_cost_price
     this.change_stock = true;

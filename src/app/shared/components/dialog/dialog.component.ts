@@ -46,7 +46,7 @@ import { DialogConfig } from "./dialog-config.model";
       false if the secondary button is clicked, or undefined if outside of the dialog is clicked.
 */
 @Component({
-    selector: "loxam-dialog",
+    selector: "app-dialog",
     templateUrl: "./dialog.component.html",
     styleUrls: ["./dialog.component.scss"]
 })

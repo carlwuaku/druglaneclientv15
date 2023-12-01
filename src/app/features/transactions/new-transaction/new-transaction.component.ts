@@ -26,7 +26,7 @@ export class NewTransactionComponent {
   constructor(public dbService: HttpService,
     private notify: NotifyService,
     private dateService: DateService,
-  private dialog: MatDialog) {
+    private dialog: MatDialog) {
 
   }
 
@@ -39,7 +39,8 @@ export class NewTransactionComponent {
       maxHeight: '80vh',
       minHeight: '300px',
       minWidth: '300px',
-      maxWidth: '80vw'
+      maxWidth: '80vw',
+      data: { product: args }
     });
 
     enterQuantity.afterClosed().subscribe(result => {
@@ -71,7 +72,7 @@ export class NewTransactionComponent {
     this.object.shift = this.shift = args
   }
 
-  showRelated(item:TransactionDetailsObject){}
+  showRelated(item: TransactionDetailsObject) { }
 
 
   editItem(item: TransactionDetailsObject) { }

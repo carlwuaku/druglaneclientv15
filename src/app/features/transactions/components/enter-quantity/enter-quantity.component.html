@@ -1,15 +1,27 @@
-<h1 mat-dialog-title>Enter Quantity</h1>
-<div mat-dialog-content class="dialog-container">
-  <form [formGroup]="form" (ngSubmit)="submit()">
+<div mat-dialog-title>
+  <em class="text-muted">{{data.product.name}}</em>
+</div>
+
+<div mat-dialog-content >
+  <form [formGroup]="form"ngNativeValidate (ngSubmit)="submit()">
     <div>
       <label for="">Quantity</label><br>
-      <input cdkFocusInitial type="text" formControlName="quantity" (keydown.down)="decrement()"
+      <input (keyup)="validateQuantity()" autocomplete="off" (change)="validateQuantity()" id="numericInput" cdkFocusInitial type="text" required formControlName="quantity"
+       (keydown.down)="decrement()"
         (keydown.arrowdown)="decrement()" (keydown.up)="increment()" (keydown.arrowup)="increment()">
-
+        <button type="button" (click)="increment()" class="btn btn-sm btn-info">+1</button>
+        <button type="button" (click)="decrement()" class="btn btn-sm btn-warning">-1</button>
+      <div class="text-danger" *ngIf="form.get('quantity')?.hasError('required') &&
+      form.get('quantity')?.touched">
+        Quantity is required.
+      </div>
+      <div class="text-danger" *ngIf="form.get('quantity')?.hasError('notANumber') && form.get('quantity')?.touched">
+        Only numbers allowed
+      </div>
     </div>
 
-    <div mat-dialog-actions>
-      <button mat-flat-button color="primary" type="submit">
+    <div >
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
         OK
       </button>
       <button mat-flat-button color="secondary" type="button" [mat-dialog-close]="false">

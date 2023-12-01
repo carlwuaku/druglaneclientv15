@@ -1,17 +1,23 @@
 <div class="flex_search" #search_results_div>
   <div class="focus_search" >
-    <app-select-object (selectionChanged)="selectionMade($event)" [type]="'search'" [url]="'product'" [searchFields]="searchFields">
+    <p-autoComplete [showClear]="true" defaultLabel="Type the name of an item"
+      [(ngModel)]="selectedItem" [dropdown]="true" [suggestions]="objects"
+      (onSelect)="selectionMade($event)"
+      [emptyMessage]="'No item found.'"
+    [showEmptyMessage]="true"
+    [autoHighlight]="true"
+    [autofocus]="true"
+    [delay]="0"
+      [dropdownMode]="'current'" (completeMethod)="search($event)">
+      <ng-template let-object pTemplate="item">
+          {{object.name}} <br>
+          [price: {{object.price}}/{{object.unit}}]
+          <span>[stock: {{object.current_stock}}] </span>
+          <span> [shelf: {{object.shelf}}]</span>
+          <span [ngClass]="{ 'text-danger':  object.expired}"> [expiry: {{object.expiry}}] </span>
 
-      <ng-template #customTemplate let-object pTemplate="item">
-        <div *ngIf="object">
-        {{object.name}} <br>
-        [price: {{object.price}}/{{object.unit}}]
-        <span >[stock: {{object.stock}}] </span>
-        <span > [shelf: {{object.shelf}}]</span>
-        <span  [ngClass]="{ 'text-danger':  object.expired}"> [expiry: {{object.expiry}}] </span>
-        </div>
       </ng-template>
-    </app-select-object>
+    </p-autoComplete>
     <div class="search_extra_options">
       <i title="Add New Product" class="fa fa-plus" (click)="addProduct()" style="
     color: gray; margin: 1%;

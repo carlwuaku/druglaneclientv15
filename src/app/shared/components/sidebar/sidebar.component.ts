@@ -32,7 +32,7 @@ export class SidebarComponent {
       children: [
         {
           title: "Start Sales",
-          url: "/new_sale",
+          url: "/transactions/start",
           admin_available: false,
 
         },

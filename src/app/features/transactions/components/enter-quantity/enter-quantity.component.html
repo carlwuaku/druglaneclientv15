@@ -1,11 +1,20 @@
-<form [formGroup]="form">
-  <div>
-    <label for="">Quantity</label><br>
-    <input type="text" formControlName="quantity" (keydown.down)="decrement()"
-    (keydown.up)="increment()">
+<h1 mat-dialog-title>Enter Quantity</h1>
+<div mat-dialog-content class="dialog-container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label for="">Quantity</label><br>
+      <input cdkFocusInitial type="text" formControlName="quantity" (keydown.down)="decrement()"
+        (keydown.arrowdown)="decrement()" (keydown.up)="increment()" (keydown.arrowup)="increment()">
 
-  </div>
+    </div>
 
-  <button></button>
-
-</form>
+    <div mat-dialog-actions>
+      <button mat-flat-button color="primary" type="submit">
+        OK
+      </button>
+      <button mat-flat-button color="secondary" type="button" [mat-dialog-close]="false">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

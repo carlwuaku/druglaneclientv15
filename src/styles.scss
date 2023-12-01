@@ -482,3 +482,10 @@ body {
 .modal {
   overflow: scroll !important;
 }
+.cdk-overlay-container {
+  z-index: 1065 !important;
+}
+.align-center {
+  display: flex;
+  align-items: center;
+}

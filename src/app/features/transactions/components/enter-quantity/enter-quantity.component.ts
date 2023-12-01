@@ -1,8 +1,10 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { PERMISSION_EDIT_SALES } from 'src/app/core/models/permissions';
 import { isEmpty } from 'src/app/shared/utils/helper';
+import { IEnterQuantity } from '../../models/enter_quantity.model';
 
 @Component({
   selector: 'app-enter-quantity',
@@ -15,7 +17,8 @@ export class EnterQuantityComponent {
     label: new FormControl(''),
   });
 
-  constructor(private authService: AuthService, private el: ElementRef, private renderer: Renderer2) {
+  constructor(private authService: AuthService, public dialogRef: MatDialogRef<EnterQuantityComponent, IEnterQuantity>,
+    private el: ElementRef, private renderer: Renderer2) {
   }
 
   keyChangeQuantity(event:KeyboardEvent) {
@@ -74,5 +77,12 @@ export class EnterQuantityComponent {
     if (inputElement) {
       this.renderer.selectRootElement(inputElement).focus();
     }
+  }
+
+  submit() {
+    this.dialogRef.close({
+      quantity: this.form.get('quantity') ? parseFloat(this.form.get('quantity')?.value!) : 0,
+      label: this.form.get('label')?.value!
+    })
   }
 }

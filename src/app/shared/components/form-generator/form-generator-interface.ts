@@ -48,4 +48,4 @@ export const PractitionerCategories = [
   { key: "Physician Assistant", value: "Physician Assistant" },
 ]
 
-export type SelectObjectType = "search" | "select" | "datalist";
+export type SelectObjectType = "search" | "select" | "datalist" | "stringSelect";

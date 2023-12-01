@@ -4,34 +4,40 @@
     <mat-icon>refresh</mat-icon> Retry
   </button>
 </span>
-  <span *ngIf="isLoaded && type === 'select'">
-    <p-dropdown (onChange)="selectionMade()" *ngIf="isLoaded" [options]="objects" [(ngModel)]="selectedItem"
-      optionLabel="{{labelProperty}}" [filter]="true" [filterBy]="labelProperty" [showClear]="true"
-      defaultLabel="Select an item">
-    </p-dropdown>
-  </span>
+<span *ngIf="isLoaded && type === 'select'">
+  <p-dropdown (onChange)="selectionMade()" *ngIf="isLoaded" [options]="objects" [(ngModel)]="selectedItem"
+    optionLabel="{{labelProperty}}" [filter]="true" [filterBy]="labelProperty" [showClear]="true"
+    defaultLabel="Select an item">
+  </p-dropdown>
+</span>
 
-  <div *ngIf="type === 'search'">
-    <p-autoComplete class="search_input" [showClear]="true" defaultLabel="Type the name of an item"
-    [(ngModel)]="selectedItem" [dropdown]="true" [field]="labelProperty"
-    [suggestions]="objects" (onSelect)="selectionMade()"
-    [dropdownMode]="'current'" (completeMethod)="search($event)">
+<span *ngIf="isLoaded && type === 'stringSelect'">
+  <select [(ngModel)]="selectedItem" (change)="selectionMade()" name="vendors">
+    <option value="{{obj}}" *ngFor="let obj of objects">
+      {{obj}}
+    </option>
+  </select>
+</span>
+
+<div *ngIf="type === 'search'">
+  <p-autoComplete class="search_input" [showClear]="true" defaultLabel="Type the name of an item"
+    [(ngModel)]="selectedItem" [dropdown]="true" [field]="labelProperty" [suggestions]="objects"
+    (onSelect)="selectionMade()" [dropdownMode]="'blank'" (completeMethod)="search($event)">
     <div *ngIf="customTemplate">
-          <ng-container *ngTemplateOutlet="customTemplate"></ng-container>
+      <ng-container *ngTemplateOutlet="customTemplate"></ng-container>
     </div>
-    <!-- <ng-container *ngTemplateOutlet="customTemplate || defaultTemplate"></ng-container> -->
   </p-autoComplete>
 
-  </div>
+</div>
 
-  <span *ngIf="isLoaded && type == 'datalist'">
-    <input type="text" [(ngModel)]="selectedItem" [attr.list]="datalistKey" name="selected" (change)="datalistSelectionMade()">
-    <datalist [id]="datalistKey">
-      <option *ngFor="let obj of objects" value="{{obj}}">{{obj}} </option>
-    </datalist>
-  </span>
+<span *ngIf="isLoaded && type == 'datalist'">
+  <input type="text" [(ngModel)]="selectedItem" [attr.list]="datalistKey" name="selected"
+    (change)="datalistSelectionMade()">
+  <datalist [id]="datalistKey">
+    <option *ngFor="let obj of objects" value="{{obj}}">{{obj}} </option>
+  </datalist>
+</span>
 
-  <ng-template #defaultTemplate let-object>
-    <div>{{object[labelProperty]}}.. </div>
-  </ng-template>
-
+<ng-template #defaultTemplate let-object>
+  <div>{{object[labelProperty]}}.. </div>
+</ng-template>

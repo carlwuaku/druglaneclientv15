@@ -99,6 +99,7 @@ export class SelectObjectComponent implements OnInit, OnChanges {
 
   selectionMade() {
     this.selectionChanged.emit(this.selectedItem);
+    this.selectedItem = null;
   }
 
   datalistSelectionMade() {
@@ -109,6 +110,9 @@ export class SelectObjectComponent implements OnInit, OnChanges {
 
 
   search(event: AutoCompleteCompleteEvent) {
+    if (!event.query) {
+      return;
+    }
     this.loading = true;
     //create json search payload using the fields
     const payload: SearchQuery[] = [];

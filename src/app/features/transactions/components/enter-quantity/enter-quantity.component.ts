@@ -1,8 +1,10 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { DialogConfig } from '@angular/cdk/dialog';
+import { Component, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { PERMISSION_EDIT_SALES } from 'src/app/core/models/permissions';
+import { ProductObject } from 'src/app/features/products/models/productModel';
 import { isEmpty } from 'src/app/shared/utils/helper';
 import { IEnterQuantity } from '../../models/enter_quantity.model';
 
@@ -17,8 +19,11 @@ export class EnterQuantityComponent {
     label: new FormControl(''),
   });
 
-  constructor(private authService: AuthService, public dialogRef: MatDialogRef<EnterQuantityComponent, IEnterQuantity>,
-    private el: ElementRef, private renderer: Renderer2) {
+  constructor(private authService: AuthService,
+    public dialogRef: MatDialogRef<EnterQuantityComponent, IEnterQuantity>,
+    private el: ElementRef, private renderer: Renderer2,
+    @Inject(MAT_DIALOG_DATA) public data: {product:ProductObject}) {
+
   }
 
   keyChangeQuantity(event:KeyboardEvent) {
@@ -48,12 +53,33 @@ export class EnterQuantityComponent {
 
   }
 
+  validateQuantity() {
+    const control = this.form.controls["quantity"];
+    const value = control.value;
+
+    if (isEmpty(value)) {
+      control.setErrors({
+        required: 'A number is required',
+      })
+    }
+    else if (value && isNaN(parseFloat(value))) {
+      control.setErrors({
+        notANumber: 'Only numbers are allowed',
+      })
+    }
+    else {
+      if (control.hasError('notANumber')) {
+        control.setErrors(null);
+      }
+    }
+  }
+
   private updateQuantityField(quantity: number) {
     const control = this.form.controls["quantity"];
     const value = control.value;
 
     if (isEmpty(value)) {
-      control.setValue("0")
+      control.setValue("1")
     }
     else if (value && isNaN(parseFloat(value))) {
       control.setErrors({

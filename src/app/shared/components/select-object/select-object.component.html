@@ -20,9 +20,15 @@
 </span>
 
 <div *ngIf="type === 'search'">
-  <p-autoComplete class="search_input" [showClear]="true" defaultLabel="Type the name of an item"
-    [(ngModel)]="selectedItem" [dropdown]="true" [field]="labelProperty" [suggestions]="objects"
-    (onSelect)="selectionMade()" [dropdownMode]="'blank'" (completeMethod)="search($event)">
+  <p-autoComplete class="search_input" [autofocus]="true" [showClear]="true" defaultLabel="Type the name of an item"
+    [(ngModel)]="selectedItem"
+    [emptyMessage]="'No item found.'"
+    [showEmptyMessage]="true"
+    [autoHighlight]="true"
+    [autofocus]="true"
+    [delay]="0"
+    [dropdown]="true" [field]="labelProperty" [suggestions]="objects"
+    (onSelect)="selectionMade()" [dropdownMode]="'current'" (completeMethod)="search($event)">
     <div *ngIf="customTemplate">
       <ng-container *ngTemplateOutlet="customTemplate"></ng-container>
     </div>

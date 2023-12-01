@@ -28,7 +28,7 @@ export class TransactionDetailsObject {
     this.label = label;
     this.cost_price = cost_price;
     this.expiry = expiry;
-    this.current_stock = 0;
+    this.current_stock = current_stock;
   }
 
   increment() {

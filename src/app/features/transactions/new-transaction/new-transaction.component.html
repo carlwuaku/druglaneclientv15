@@ -129,3 +129,68 @@
 
   </div>
 </div>
+
+<div class="padding-10">
+  <div>
+    <!-- Sub Total: GHC {{sale_total.toFixed(2)}} | {{tax}}% tax = {{tax_amount.toFixed(2)}}
+    <span *ngIf="can_give_discount; else no_discount">
+      <button class="btn btn-sm btn-info" (click)="applyDiscount()" *ngIf="discount == 0">Apply Discount</button>
+      <span *ngIf="discount > 0">Discount Applied: GHC {{discount}}
+        <button class="btn btn-sm btn-danger" (click)="removeDiscount()"><i class="fa fa-remove"></i> Remove</button>
+      </span>
+    </span> -->
+    <ng-template #no_discount>
+      <em title="You are not permitted to give discounts" class="text-muted">
+        Discount <i class="fa fa-lock"></i>
+      </em>
+    </ng-template>
+
+
+    <span class="">
+      <!-- <button class="btn btn-info btn-sm " [disabled]="items.length < 1" (click)="holdItems()">Hold</button>
+      <button class="btn btn-info btn-sm " (click)="viewHeldItems()">Held Items ({{held_items.length}})</button> -->
+      &nbsp;
+      <!-- <button class="btn btn-info btn-sm" (click)="showCustomerModal()"> <i class="fa fa-user"></i>
+        <span *ngIf="!isEmpty(customer_name); else default_customer_btn_text"> {{customer_name}}
+          - Refill - <em>{{set_refill ? "yes" : "no"}} </em>
+        </span>
+        <ng-template #default_customer_btn_text>
+          Set Customer & Refill
+        </ng-template>
+      </button> -->
+      <span title="Receipt Settings">
+        Receipt
+        <select (change)="setPrintSettings()" name="print_settings" [(ngModel)]="print_settings">
+          <option value="save_print">Print Always</option>
+          <option value="save_only">Don't Print</option>
+        </select>
+      </span>
+      <span title="Drug information label Settings">
+        Labels
+        <select (change)="setLabelPrintSettings()" name="print_settings" [(ngModel)]="label_print_settings">
+          <option value="print_always">Print Always</option>
+          <option value="no_print">Don't Print</option>
+        </select>
+      </span>
+
+    </span>
+
+    <!-- <button data-toggle="modal" data-target="#cautions_modal" class="btn btn-sm btn-danger"><i class="fa fa-exclamation-triangle"></i> Cautions & Side effects
+              <span class="badge badge-warning">{{cautions.length}}</span></button> -->
+
+  </div>
+  <div class="">
+
+    <span>
+      <!-- <b>Amount to be paid: GHC {{(discounted_total).toFixed(2)}} </b> | -->
+
+    </span>
+    <span class="">
+      <button class="btn btn-sm btn-danger" (click)="cancel()"><i class="fa fa-remove"></i> Cancel</button>
+      <button class="btn btn-sm btn-success" (click)="saveLocalItems()"><i class="fa fa-print"></i> Save</button>
+    </span>
+
+
+  </div>
+
+</div>

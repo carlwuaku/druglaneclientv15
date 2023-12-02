@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { SettingsTransfer } from 'src/app/core/models/settingsInterface';
 import { HttpService } from 'src/app/core/services/http/http.service';
+import { PRINT_SETTINGS, LABEL_PRINT_SETTINGS } from 'src/app/shared/utils/constants';
 import { SearchQuery } from 'src/app/shared/utils/types';
 import { FormComponent } from '../form/form.component'
 import { ProductObject } from '../models/productModel';
@@ -18,8 +21,12 @@ export class SelectProductComponent {
   error: boolean = false;
   error_message: string = "";
   objects: ProductObject[] = []
-  selectedItem: any = null
-  constructor(private dialog: MatDialog, private dbService: HttpService) { }
+  selectedItem: any = null;
+  search_subscription: Subscription | null = null;
+
+  constructor(private dialog: MatDialog, private dbService: HttpService) {
+
+  }
 
   public addProduct() {
     this.dialog.open(FormComponent, {
@@ -37,6 +44,9 @@ export class SelectProductComponent {
     // if (!event.query) {
     //   return;
     // }
+    if (this.search_subscription != null) {
+      this.search_subscription.unsubscribe();
+    }
     this.loading = true;
     //create json search payload using the fields
     const payload: SearchQuery[] = [];
@@ -45,7 +55,7 @@ export class SelectProductComponent {
     })
     // { field: "current_stock", operator: "less_than_or_equal", param: 'min_stock' }
     const searchUrl = `product?param=${JSON.stringify(payload)}`
-    this.dbService.get<any>(searchUrl).pipe(take(1))
+    this.search_subscription = this.dbService.get<any>(searchUrl).pipe(take(1))
       .subscribe({
         next: (data: any) => {
           //in some rare cases the data is returned as the result, not in the data prop
@@ -66,6 +76,9 @@ export class SelectProductComponent {
         }
       });
   }
+
+
+
 
 }
 

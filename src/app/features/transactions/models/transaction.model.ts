@@ -68,6 +68,20 @@ export class TransactionObject {
     this.client_address = client.location || '';
     this.client_name = client.name;
     this.client_contact = client.phone;
-
   }
+
+
+  // getTotal() {
+  //   let sum = 0;
+  //   this.items.forEach(i => {
+  //     sum += i.quantity * i.price;
+  //   });
+  //   this.total = sum;
+  //   this.tax = this.tax / 100 * this.total
+  //   this.discounted_total = sum + this.tax - this.discount;
+  //   this.receipt_discount = this.discount - 0;
+  //   this.receipt_discounted_total = sum + this.tax_amount - this.discount;
+
+  // }
+
 }
